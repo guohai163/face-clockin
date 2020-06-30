@@ -1,0 +1,69 @@
+#%RAML 1.0
+title: gyyx face clock in/out api document
+version: v1
+# baseUri: https://api.clockin.vaccine.pub
+baseUri: http://127.0.0.1
+
+
+/status:
+  displayName: 获得指定id的状态
+  get:
+    headers:
+      user-code:
+        type: string
+    queryParameters:
+      lon:
+        displayName: 经度
+        example: 116.29845
+      lat:
+        displayName: 纬度
+        example: 39.95933
+    responses:
+      200:
+/init:
+  displayName: 首次注册
+  post:
+    headers:
+      user-code:
+        type: string
+    body:
+      multipart/form-data:
+        properties:
+          file:
+            description: upload face photo
+            required: true
+            type: file
+    responses:
+      200:
+/clock:
+  displayName: 打卡操作
+  post:
+    headers:
+      user-code:
+        type: string
+    body:
+      multipart/form-data:
+        properties:
+          file:
+            description: upload face photo
+            required: true
+            type: file
+    responses:
+      200:
+        body:
+          application/json:
+            examples:
+              log-or-lat-error: {"state": "fail", "data": "log-or-lat-error"}
+    queryParameters:
+      lon:
+        displayName: 经度
+        example:
+          116.29845
+      lat:
+        displayName: 纬度
+        example:
+          39.95933
+      bssid:
+        displayName: wifi的BSSID
+        example:
+          ffee

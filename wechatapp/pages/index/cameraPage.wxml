@@ -1,0 +1,19 @@
+<view wx:if="{{cameraFlag}}">
+  <camera class="camera" resolution="low" device-position="back" flash="off" binderror="error">
+    <cover-view class="title_view">
+      <cover-view class="whilte_view">请将人像对准取景框拍摄</cover-view>
+      <cover-view>免冠、无墨镜、面部清晰、光线均匀</cover-view>
+    </cover-view> 
+    <cover-view class="img_view">
+      <cover-view class="img_view_view"></cover-view>
+      <cover-image class="camera_bg" src="../../image/camera_bg.png"></cover-image>
+      <cover-view class="camera_btn_view" hover-class="hover-tap" bindtap="takePhoto" >
+          <cover-view class="camera_btn"></cover-view>
+      </cover-view>
+    </cover-view>
+  </camera>
+</view>
+<view class="error_main_view" wx:else>
+  <image src="../../image/error_bg_icn.png"></image>
+  <view class="text">请授权摄像头权限</view>
+</view>

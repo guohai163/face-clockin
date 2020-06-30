@@ -1,0 +1,114 @@
+<!--index.wxml-->
+<view class="main" wx:if="{{!errFlag}}">
+  <view class="userInfo_view">
+    <view class="user_text_view">
+      <view class="user_name_view">{{userInfoData.trueName}}</view>
+      <view class="user_job_view">
+        <image src="../../image/job_icon.png"></image>
+        <view class="text">{{userInfoData.department}}</view>
+      </view>
+    </view>
+    <!-- <view class="userHead_view"></view> -->
+  </view>
+  <view class="line_view"></view>
+  <!-- 日期 -->
+  <view class="center_view">
+    <view class="text_view">
+      <image src="../../image/sun_icon.png"></image>
+      <view class="text">愿你以渺小启程以伟大结束</view>
+    </view>
+    <view class="date_view">
+      <image src="../../image/date_icon.png"></image>
+      <view class="text">{{dateVal}}</view>
+    </view>
+  </view>
+  <!-- 首次上传照片 -->
+  <view class="first_upload_headImg_view" wx:if="{{!userInfoData.baseImg}}">
+    <view class="init_border_view" wx:if="{{isLoad}}" data-type="init" bindtap="clockinInit" hover-class="hover-tap">
+      <view class="init_view">
+        <view class="init_title_view">首次上传</view>
+      </view>
+    </view>
+    <view class="title_view">
+      <image class="icon" src="../../image/title_icon.png" />
+      <view>请上传人脸识别照片</view>
+    </view>
+  </view>
+  <!-- 正常打卡 -->
+  <block wx:else>
+    <view class="play_card_view" >
+      <view class="play_card_centent_view">
+
+        <view class="play_card_main_view">
+          <!-- 打卡记录 -->
+          <view class="play_card_record_main_view" wx:if="{{goToWorkData}}">
+            <view class="play_card_record_view">
+              <view class="text">打卡时间 {{goToWorkData.createTime}}</view>
+              <view class="record_tipSuc_view" wx:if="{{goToWorkData.legitimate}}">正常</view>
+              <view class="record_tipErr_view" wx:else>异常</view>
+            </view>
+            <view class="play_card_address_view">{{goToWorkAddress}}</view>
+            <image src="{{goToWorkData.userImg}}" data-url="{{goToWorkData.userImg}}" bindtap="openImage" hover-class="hover-tap" class="face_img"></image>
+          </view>
+
+          <view class="play_card_main_detail_view" wx:if="{{isShowGoWorkFlag}}">
+            <view class="play_card_upWork_border_view" bindtap="clockinInit" hover-class="hover-tap" data-type="clockin" >
+              <view class="play_card_upWork_view">
+                <view class="play_card_text">{{goWorkText}}</view>
+                <view class="time_view">{{hoursVal}}<text class="time_string_icon">:</text>{{minutesVal}}</view>
+              </view>
+            </view>
+            <view class="play_card_tip_view" wx:if="{{positionFlag}}">
+              <image src="../../image/success_sm_icon.png"></image>
+              <view class="text">你已进入考勤范围</view>
+            </view>
+            <view class="play_card_tip_view" wx:else>
+              <image src="../../image/warn_icon.png"></image>
+              <view class="text red">你已超出打卡范围</view>
+            </view>
+            <view class="curPosition">
+              <image src="../../image/position_icon.png"></image>
+              <view class="text address {{positionFlag?'':'red'}}">{{curAddress}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 下班打卡 -->
+    <view class="offWork_play_card_main_view">
+      <view wx:if="{{offWorkData}}">
+        <view class="play_card_record_view">
+          <view class="text">打卡时间 {{offWorkData.createTime}}</view>
+          <view class="record_tipSuc_view" wx:if="{{offWorkData.legitimate}}">正常</view>
+          <view class="record_tipErr_view" wx:else>异常</view>
+        </view>
+        <view class="play_card_address_view">{{offWorkAddress}}</view>
+        <image src="{{offWorkData.userImg}}" data-url="{{offWorkData.userImg}}" bindtap="openImage" hover-class="hover-tap" class="face_img"></image>
+      </view>
+      <view class="offWork_play_card_view" wx:if="{{!isShowGoWorkFlag}}">
+        <view class="play_card_upWork_border_view" bindtap="clockinInit" hover-class="hover-tap" data-type="clockin">
+          <view class="play_card_upWork_view">
+            <view class="play_card_text">{{offWorkText}}</view>
+            <view class="time_view">{{hoursVal}}<text class="time_string_icon">:</text>{{minutesVal}}</view>
+          </view>
+        </view>
+        <view class="play_card_tip_view" wx:if="{{positionFlag}}">
+          <image src="../../image/success_sm_icon.png"></image>
+          <view class="text">你已进入考勤范围</view>
+        </view>
+        <view class="play_card_tip_view" wx:else>
+          <image src="../../image/warn_icon.png"></image>
+          <view class="text red">你已超出打卡范围</view>
+        </view>
+        <view class="curPosition">
+          <image src="../../image/position_icon.png"></image>
+          <view class="text address {{positionFlag?'':'red'}}">{{curAddress}}</view>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>
+<view class="error_main_view" wx:else>
+  <image src="../../image/error_bg_icn.png"></image>
+  <view class="text">{{errTip}}</view>
+</view>

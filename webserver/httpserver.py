@@ -5,6 +5,7 @@ import uuid
 import dlib
 import numpy
 import tornado.web
+import time
 
 from database import Database
 from settings import BASE_DIR, UPLOADS_DIR, COMP_LOCATION, ALLOW_DIST
@@ -69,7 +70,7 @@ class StatusHandler(tornado.web.RequestHandler):
     """
 
     def get(self):
-        result_data = {'state': 'fail', 'data': '', 'distance': -1}
+        result_data = {'state': 'fail', 'data': '', 'distance': False, 'now': 0}
         user_code = self.request.headers.get('user-code')
         user_data = DBOBJ.get_user_data(user_code)
         if None is user_data or user_data['base_img'] == '':
@@ -83,8 +84,12 @@ class StatusHandler(tornado.web.RequestHandler):
         if 'lon' in self.request.arguments:
             lon2 = float(self.get_argument('lon', 0.0))
             lat2 = float(self.get_argument('lat', 0.0))
-            distance = haversine(COMP_LOCATION['lon'], COMP_LOCATION['lat'], lon2, lat2)
-            result_data['distance'] = distance
+            local_dist = haversine(COMP_LOCATION['lon'], COMP_LOCATION['lat'], lon2, lat2)
+            if local_dist > ALLOW_DIST:
+                result_data['distance'] = False
+            else:
+                result_data['distance'] = True
+        result_data['now'] = int(round(time.time() * 1000))
         self.write(result_data)
 
 
