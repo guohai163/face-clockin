@@ -1,4 +1,4 @@
-const netUrl = "http://192.168.88.2";
+const netUrl = "https://api.clockin.vaccine.pub";
 // 获取用户信息
 const getUserInfoUrl = `${netUrl}/status`;
 
