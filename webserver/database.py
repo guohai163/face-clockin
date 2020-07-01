@@ -12,7 +12,7 @@ class Database:
         """
         初始化DB
         """
-        archive_path = '%s/data.sqlit' % BASE_DIR
+        archive_path = '%s/dbfile/data.sqlit' % BASE_DIR
         self._sql_conn = sqlite3.connect(archive_path)
         self._cursor = self._sql_conn.cursor()
         self._cursor.execute('CREATE TABLE IF NOT EXISTS user_tb (user_code TEXT,base_img TEXT,create_time DATE)')

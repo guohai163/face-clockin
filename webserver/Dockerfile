@@ -19,7 +19,7 @@ RUN pip3 install --no-cache-dir -r requirements.txt -i https://mirrors.aliyun.co
 
 COPY *.py ./
 COPY dlib_dat/*.dat ./dlib_dat/
-COPY conf/* ./conf/
-RUN mkdir /opt/webserver/uploads
+RUN mkdir uploads
+RUN mkdir dbfile
 
 CMD ["python3", "/opt/webserver/main.py"]
