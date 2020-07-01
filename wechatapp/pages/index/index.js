@@ -181,14 +181,14 @@ Page({
       wx.hideLoading();
       if (data.data == 'not_fond_user') {
         // 待初始化
-        let userInfo = {'baseImg': false, 'trueName': 'DEMO', 'department': 'Test'}
+        let userInfo = {'baseImg': false, 'trueName': '你好：', 'department': '欢迎使用公司打卡程序'}
         this.setData({
           userInfoData: userInfo,
           isLoad: true
         })
       } else {
         // 已经存在的用户
-        let userInfo = {'baseImg': true, 'trueName': 'DEMO', 'department': 'Test'}
+        let userInfo = {'baseImg': true, 'trueName': '你好：', 'department': '欢迎使用公司打卡程序'}
         this.setData({
           userInfoData: userInfo,
           positionFlag: data.distance

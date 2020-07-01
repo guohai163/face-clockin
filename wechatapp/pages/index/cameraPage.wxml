@@ -1,5 +1,5 @@
 <view wx:if="{{cameraFlag}}">
-  <camera class="camera" resolution="low" device-position="back" flash="off" binderror="error">
+  <camera class="camera" resolution="low" device-position="front" flash="off" binderror="error">
     <cover-view class="title_view">
       <cover-view class="whilte_view">请将人像对准取景框拍摄</cover-view>
       <cover-view>免冠、无墨镜、面部清晰、光线均匀</cover-view>
